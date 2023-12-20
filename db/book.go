@@ -3,7 +3,7 @@ package db
 type Book struct {
 	ID     uint    `gorm:"primaryKey" json:"id" form:"id"`
 	Title  string  `json:"title" form:"title"`
-	Artist string  `json:"artist" form:"artist"`
+	Author string  `json:"author" form:"author"`
 	Price  float64 `json:"price" form:"price"`
 }
 
@@ -21,7 +21,7 @@ func FetchBookById(id uint) (Book, error) {
 
 func SearchBook(query string) ([]Book, error) {
 	var books []Book
-	rs := db.Where("title LIKE ? OR artist LIKE ? OR id LIKE ? OR price LIKE ?", "%"+query+"%", "%"+query+"%", "%"+query+"%", "%"+query+"%").Order("title ASC").Find(&books)
+	rs := db.Where("title LIKE ? OR author LIKE ? OR id LIKE ? OR price LIKE ?", "%"+query+"%", "%"+query+"%", "%"+query+"%", "%"+query+"%").Order("title ASC").Find(&books)
 	return books, rs.Error
 }
 
