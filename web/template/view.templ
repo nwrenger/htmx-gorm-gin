@@ -1,0 +1,151 @@
+package template
+
+import (
+	"strconv"
+	"htmx-gorm-gin/db"
+)
+
+templ Page() {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>Search DB</title>
+			<script src="static/js/htmx.min.js"></script>
+			<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.min.css" rel="stylesheet" type="text/css"/>
+			<script src="https://cdn.tailwindcss.com"></script>
+		</head>
+		<body>
+			<section class="p-2">
+				<div class="label">
+					<span class="label-text-alt">
+						Search
+					</span>
+				</div>
+				<div class="join w-full">
+					<input
+ 						id="search"
+ 						class="input input-bordered join-item w-full"
+ 						type="search"
+ 						name="search"
+ 						placeholder="Begin Typing To Search Books..."
+ 						hx-post="/search"
+ 						hx-trigger="input changed delay:500ms, search, load, update from:body"
+ 						hx-target="#search-results"
+ 						hx-indicator=".htmx-indicator"
+					/>
+					<button class="btn join-item" hx-get="/book/add" hx-target="#book-display" hx-indicator=".htmx-indicator">Add Book</button>
+				</div>
+				<div class="label">
+					<span class="htmx-indicator label-text-alt">
+						Loading... 
+					</span>
+				</div>
+				<div id="search-results"></div>
+				<div id="book-display"></div>
+			</section>
+		</body>
+	</html>
+}
+
+templ Results(books []db.Book) {
+	<div id="search-results" class="overflow-x-scroll">
+		<table class="table table-pin-rows table-pin-cols">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Title</th>
+				</tr>
+			</thead>
+			<tbody>
+				for _, book := range books {
+					<tr class="hover" hx-get={ "/book/" + strconv.FormatUint(uint64(book.ID), 10) } hx-target="#book-display" hx-indicator=".htmx-indicator">
+						<td>{ strconv.FormatUint(uint64(book.ID), 10) }</td>
+						<td>{ book.Title }</td>
+					</tr>
+				}
+				if len(books) == 0 {
+					<tr class="opacity-50">
+						<th>No results!</th>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}
+
+templ AddBook(book *db.Book) {
+	<div id="book-display" class="h-fit">
+		<form hx-post="/book" hx-target="#book-display" hx-indicator=".htmx-indicator">
+			@BookView(*book)
+			<button class="btn btn-outline btn-primary mt-2" type="submit">Add</button>
+		</form>
+	</div>
+}
+
+templ EditBook(book *db.Book) {
+	<div id="book-display" class="h-fit">
+		<form hx-put={ "/book/" + strconv.FormatUint(uint64(book.ID), 10) } hx-target="#book-display" hx-indicator=".htmx-indicator">
+			@BookView(*book)
+			<button class="btn btn-outline btn-primary mt-2" type="submit">Submit</button>
+			<button class="btn btn-outline btn-danger mt-2" type="button" hx-Delete={ "/book/" + strconv.FormatUint(uint64(book.ID), 10) } hx-target="#book-display" hx-indicator=".htmx-indicator">Delete</button>
+		</form>
+	</div>
+}
+
+templ BookView(book db.Book) {
+	<label class="form-control w-full" for="search">
+		<div class="label">
+			<span class="label-text">Title</span>
+		</div>
+		<input
+ 			name="title"
+ 			class="input input-bordered w-full"
+ 			type="text"
+ 			placeholder="Title"
+ 			value={ book.Title }
+		/>
+	</label>
+	<label class="form-control w-full" for="search">
+		<div class="label">
+			<span class="label-text">ID</span>
+		</div>
+		<input
+			readonly
+ 			name="id"
+ 			class="input input-bordered w-full"
+ 			type="number"
+ 			placeholder="ID"
+ 			value={ strconv.FormatUint(uint64(book.ID), 10) }
+		/>
+	</label>
+	<label class="form-control w-full" for="search">
+		<div class="label">
+			<span class="label-text">Artist</span>
+		</div>
+		<input
+ 			name="artist"
+ 			class="input input-bordered w-full"
+ 			type="text"
+ 			placeholder="Artist"
+ 			value={ book.Artist }
+		/>
+	</label>
+	<label class="form-control w-full" for="search">
+		<div class="label">
+			<span class="label-text">Price</span>
+		</div>
+		<input
+ 			name="price"
+ 			class="input input-bordered w-full"
+ 			type="number"
+ 			placeholder="Price"
+ 			value={ strconv.FormatFloat(book.Price, 'f', -1, 64) }
+		/>
+	</label>
+}
+
+templ NoBook() {
+	<div id="book-display"></div>
+}

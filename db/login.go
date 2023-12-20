@@ -10,7 +10,7 @@ const (
 
 type Permissions struct {
 	AccessAdmin Permission `json:"access_admin"`
-	AccessAlbum Permission `json:"access_album"`
+	AccessBook  Permission `json:"access_book"`
 }
 
 type Login struct {

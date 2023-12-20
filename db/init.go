@@ -12,7 +12,7 @@ import (
 var db *gorm.DB
 
 func Open() error {
-	connString := "web-service-gin.db"
+	connString := "htmx-gorm-gin.db"
 
 	// open SQLite database
 	sqlDB, err := sql.Open("sqlite3", connString)
@@ -34,7 +34,7 @@ func Open() error {
 	// specify and auto-migrate tables
 	// the order here is important
 	return db.AutoMigrate(
-		&Album{},
+		&Book{},
 		&Login{},
 	)
 }

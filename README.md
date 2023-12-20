@@ -1,2 +1,9 @@
-# web-service-gin
-This repository contains a web server equipped with a RESTful API and an SQLite database infrastructure that I can potentially utilize in upcoming projects. It's written in Go which is perfect for that kind of stuff.
+# htmx-gorm-gin
+
+htmx-gorm-gin is a lightweight example of a RESTful API utilizing SQLite as its database and powered by the HTMX library for seamless server-client interactions.
+
+## Features
+
+- **RESTful API:** Built on the principles of Representational State Transfer (REST) for efficient and standardized communication.
+- **SQLite Database:** Utilizes a SQLite database for data storage, providing a simple and self-contained solution.
+- **HTMX Integration:** Enhances server-client interactions through HTMX, allowing for dynamic updates and a smoother user experience.
