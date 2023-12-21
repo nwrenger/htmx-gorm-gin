@@ -3,7 +3,7 @@ tmp_dir = "tmp"
 
 [build]
 bin = "./tmp/main"
-cmd = "cd ./static/content && bunx tailwindcss -i ./../../web/input.css -o ./dist/output.css --watch && cd ./../../ && templ generate && go build -o ./tmp/main ."
+cmd = "cd ./static/content && bunx tailwindcss -i ./../../web/input.css -o ./dist/output.css && cd ./../../ && templ generate && go build -o ./tmp/main ."
 delay = 1000
 exclude_dir = ["assets", "tmp", "vendor"]
 exclude_file = []
@@ -17,12 +17,6 @@ kill_delay = "0s"
 log = "build-errors.log"
 send_interrupt = false
 stop_on_error = true
-
-[[tasks]]
-name = "frontend"
-script = "bunx tailwindcss -i ./../../web/input.css -o ./dist/output.css --watch"
-cwd = "./static/content"
-wait = 1000
 
 [color]
 app = ""
