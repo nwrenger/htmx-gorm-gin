@@ -39,7 +39,7 @@ func main() {
 	router.POST("/search", web.Search)
 	router.GET("/book/add", web.ShowAddBook)
 	router.GET("/book/:id", web.ShowEditBook)
-	router.POST("/book/", web.AddBook)
+	router.POST("/book", web.AddBook)
 	router.PUT("/book/:id", web.EditBook)
 	router.DELETE("/book/:id", web.DeleteBook)
 

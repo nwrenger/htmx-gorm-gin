@@ -12,9 +12,8 @@ templ Page() {
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<title>Search DB</title>
-			<script src="static/js/htmx.min.js"></script>
-			<link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.min.css" rel="stylesheet" type="text/css"/>
-			<script src="https://cdn.tailwindcss.com"></script>
+			<script src="/static/content/node_modules/htmx.org/dist/htmx.min.js"></script>
+			<link href="/static/content/dist/output.css" rel="stylesheet"/>
 		</head>
 		<body>
 			<section class="p-2">
@@ -112,7 +111,7 @@ templ BookView(book db.Book) {
 			<span class="label-text">ID</span>
 		</div>
 		<input
-			readonly
+ 			readonly
  			name="id"
  			class="input input-bordered w-full"
  			type="number"
@@ -140,7 +139,7 @@ templ BookView(book db.Book) {
  			name="price"
  			class="input input-bordered w-full"
  			type="text"
-			pattern="[0-9]*[.,]?[0-9]+" 
+ 			pattern="[0-9]*[.,]?[0-9]+"
  			placeholder="Price"
  			value={ strconv.FormatFloat(book.Price, 'f', -1, 64) }
 		/>
