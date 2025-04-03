@@ -45,9 +45,7 @@ func AuthMiddleware(checker func(db.Login) bool) gin.HandlerFunc {
 		}
 
 		// Compare the password
-		// err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
-		err := user.Password != password
-		if err {
+		if user.Password != password {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
 			return
 		}

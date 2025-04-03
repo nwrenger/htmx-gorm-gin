@@ -14,7 +14,8 @@ type Permissions struct {
 }
 
 type Login struct {
-	User       string      `gorm:"primaryKey" json:"user"`
+	Id         int         `gorm:"primaryKey"`
+	User       string      `json:"user"`
 	Password   string      `json:"password"`
 	Permission Permissions `json:"permission" gorm:"embedded"`
 }
@@ -29,7 +30,7 @@ func AddOrUpdateLogin(newLogin *Login) error {
 	var existingLogin Login
 
 	// Try to find the existing Login by ID
-	if err := db.First(&existingLogin, newLogin.User).Error; err != nil {
+	if err := db.First(&existingLogin, newLogin.Id).Error; err != nil {
 		// If not found, create a new record
 		rs := db.Create(newLogin)
 		return rs.Error

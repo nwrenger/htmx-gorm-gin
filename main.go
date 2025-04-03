@@ -19,6 +19,7 @@ func main() {
 
 	// adding admin, ignore error
 	db.AddOrUpdateLogin(&db.Login{
+		Id:       1,
 		User:     "admin",
 		Password: "1",
 		Permission: db.Permissions{
