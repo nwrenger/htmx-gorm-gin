@@ -1,3 +1,4 @@
 /htmx-gorm-gin.db
 /tmp
 /web/template/*_templ.go
+.DS_Store
